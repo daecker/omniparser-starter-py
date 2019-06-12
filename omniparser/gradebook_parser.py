@@ -28,17 +28,16 @@ def calculate_average_grade_from_csv(my_csv_filepath):
 
 def calculate_average_grade_from_json(x):
     with open(x, "r") as f: #with is a python function | "r" means read, "w" means write. there are other options too
-        print(type(f))
+        #print(type(f))
         file_contents = f.read()
-        print(type(file_contents)) #> str
+        #print(type(file_contents)) #> str
 
     gradebook = json.loads(file_contents)
+    students = gradebook["students"]
+    grades = [s["finalGrade"] for s in students]
+    avg_grade  = statistics.mean(grades)
 
-    print(type(gradebook))
-    print(gradebook)
-
-    return 10000
-
+    return avg_grade
 
 
 if __name__ == "__main__":
@@ -53,7 +52,7 @@ if __name__ == "__main__":
 
     print("PARSING SOME JSON EXAMPLE GRADEBOOK FILES HERE...")
 
-    gradebook_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "gradebook_2019.json") #__file__ is the current file path and the rest is the relative file path
+    gradebook_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "gradebook_2018.json") #__file__ is the current file path and the rest is the relative file path
         #.. moves up the file path
         #its important to know where you are working when creating the file path
 
